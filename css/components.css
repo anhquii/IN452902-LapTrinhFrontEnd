@@ -477,6 +477,153 @@
    .form__grid: 1 cột, từ 40rem 2 cột. .field: Grid, align-content: start;
    input/select/textarea full width, cao ≥ 2.75rem, &:focus-visible và &:user-invalid (viền --color-danger).
    .field--full chiếm cả hàng (grid-column: 1 / -1). */
+.form {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+
+  @media (width >= 40rem) {
+    padding: var(--space-8);
+  }
+
+  & fieldset {
+    display: grid;
+    gap: var(--space-4);
+    min-inline-size: 0;          /* fieldset mặc định không chịu co → tràn ngang trên điện thoại */
+    padding: 0;
+    border: 0;
+  }
+
+  & legend {
+    margin-block-end: var(--space-4);
+    padding: 0;
+    color: var(--color-primary);
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  /* dấu * của ô bắt buộc */
+  & abbr {
+    color: var(--color-danger);
+    text-decoration: none;
+  }
+}
+
+.form__grid {
+  display: grid;
+  gap: var(--space-4);
+
+  @media (width >= 40rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: grid;
+  align-content: start;          /* ô bên cạnh không bị kéo giãn khi ô này có dòng gợi ý */
+  gap: var(--space-1);
+
+  & label {
+    font-weight: 600;
+  }
+
+  & small {
+    color: var(--color-text-muted);
+  }
+
+  & :is(input, select, textarea) {
+    inline-size: 100%;
+    min-block-size: 2.75rem;     /* cao ≥ 44px */
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    color: inherit;
+    transition: border-color var(--duration-fast) ease-out;
+
+    &:focus-visible {
+      border-color: var(--color-primary);
+    }
+
+    /* :user-invalid chỉ đỏ SAU KHI người dùng đã gõ rồi rời ô → mở trang lần đầu chưa đỏ (khác :invalid) */
+    &:user-invalid {
+      border-color: var(--color-danger);
+    }
+  }
+
+  & textarea {
+    resize: vertical;
+  }
+}
+
+.field--full {
+  grid-column: 1 / -1;           /* chiếm cả hàng trong lưới 2 cột */
+}
 
 /* TODO(ch2-T6): .choice-group__options (Flexbox), .choice viên thuốc;
    .choice:has(input:checked) tô nền; .field--check cho ô đồng ý */
+/* legend của nhóm radio trông giống nhãn các ô khác */
+.choice-group legend {
+  margin-block-end: var(--space-2);
+  color: inherit;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.choice-group__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease-out;
+
+  & input {
+    accent-color: var(--color-primary);
+  }
+
+  /* :has() — viên CHỨA radio đang chọn thì tô nền */
+  &:has(input:checked) {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: 600;
+
+    & input {
+      accent-color: var(--color-on-primary);
+    }
+  }
+
+  /* dùng bàn phím (Tab rồi phím mũi tên) thì cả viên có vòng focus */
+  &:has(input:focus-visible) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+}
+
+.field--check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+
+  & input {
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin-block-start: 0.15rem;
+    accent-color: var(--color-primary);
+  }
+}
