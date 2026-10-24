@@ -9,14 +9,134 @@
    ========================================================================== */
 
 /* TODO(ch2-T3): .skip-link — đẩy ra khỏi màn hình (translate: 0 -200%), hiện lại khi :focus-visible */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--palette-blue-900);
+  font-weight: 600;
+  translate: 0 -200%;            /* đẩy lên khỏi màn hình */
+  transition: translate var(--duration-fast) ease-out;
+
+  &:focus-visible {
+    translate: 0 0;              /* nhấn Tab thì trượt xuống */
+  }
+}
+
 
 /* TODO(ch2-T3): .brand (logo + chữ, inline-flex), .brand__logo (2.25rem), .brand__name span tô màu nhấn */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: inherit;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand__logo {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+}
+
+.brand__name span {
+  color: var(--color-accent);
+}
 
 /* TODO(ch2-T3): .site-nav__link — viên thuốc bo tròn, cao ≥ 2.75rem (44px);
    &[aria-current="page"] nền --color-accent để biết đang ở trang nào */
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  min-block-size: 2.75rem;       /* vùng chạm ≥ 44px */
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  color: var(--color-header-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
 
+  &:hover {
+    text-decoration: underline;
+  }
+
+  /* Trang hiện tại — chọn theo aria-current có sẵn trong HTML từ Ch01 */
+  &[aria-current="page"] {
+    background-color: var(--color-accent);
+    color: var(--palette-blue-900);
+  }
+
+  @media (width >= 40rem) {
+    font-size: var(--text-base);
+    padding-inline: var(--space-4);
+  }
+}
 /* TODO(ch2-T3): .btn + .btn--primary / .btn--accent / .btn--ghost, cao ≥ 2.75rem, có transition khi hover;
    .btn-row xếp nút bằng Flexbox; .hero__eyebrow, .hero__lead, .hero__media */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 2.75rem;       /* vùng chạm ≥ 44px */
+  padding: var(--space-2) var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: translate var(--duration-fast) ease-out, box-shadow var(--duration-fast) ease-out;
+
+  &:hover {
+    translate: 0 -2px;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn--accent {
+  background-color: var(--color-accent);
+  color: var(--palette-blue-900);
+}
+
+.btn--ghost {
+  border-color: currentColor;
+  background-color: transparent;
+  color: inherit;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.hero__eyebrow {
+  margin-block-end: var(--space-2);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero__lead {
+  margin-block: var(--space-4) var(--space-6);
+  max-inline-size: 52ch;
+  font-size: var(--text-lg);
+}
+
+.hero__media {
+  border-radius: var(--radius-md);
+}
 
 /* TODO(ch2-T4): .tag (nhãn CLB) và .badge.badge--hot (nhãn "Sắp hết chỗ" màu cảnh báo,
    ★ chấm tròn nhấp nháy bằng ::before + @keyframes) */
