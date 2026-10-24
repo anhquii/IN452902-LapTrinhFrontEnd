@@ -337,9 +337,141 @@
 }
 /* TODO(ch2-T5): .table-wrap { overflow-x: auto } và .table (min-inline-size ~40rem, viền, hàng chẵn tô nền,
    cột số căn phải) — bảng cuộn trong khung, trang không cuộn ngang */
+/* Bảng rộng hơn màn hình điện thoại → chỉ khung .table-wrap cuộn ngang, trang không cuộn */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
 
+.table {
+  inline-size: 100%;
+  min-inline-size: 40rem;        /* hẹp hơn 640px thì cuộn trong khung thay vì bóp chữ */
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+
+  & caption {
+    padding: var(--space-4);
+    font-weight: 600;
+    text-align: start;
+  }
+
+  & :is(th, td) {
+    padding: var(--space-3) var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  & thead th {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  & tbody tr:nth-child(even) {
+    background-color: var(--color-bg);   /* hàng chẵn tô nền cho dễ dò theo hàng */
+  }
+
+  /* Cột cuối "Số chỗ" là số → căn phải (chỉ ở thead + tbody; dòng ghi chú ở tfoot vẫn căn trái) */
+  & thead th:last-child,
+  & tbody td:last-child {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  & tfoot td {
+    color: var(--color-text-muted);
+  }
+}
 /* TODO(ch2-T5): .back-link, .detail__media, .detail__organizer, .prose (h2, ol/ul, li::marker),
    .info-card với dl dàn Grid 2 cột (grid-template-columns: auto 1fr), .cta */
+.back-link {
+  display: inline-block;
+  margin-block-end: var(--space-3);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.detail__media {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.detail__organizer {
+  margin-block-start: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.prose {
+  & h2 {
+    margin-block-end: var(--space-3);
+    font-size: var(--text-xl);
+  }
+
+  & :is(ol, ul) {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-start: var(--space-3);
+    padding-inline-start: var(--space-6);
+  }
+
+  /* ::marker là số / dấu chấm đầu dòng của li */
+  & li::marker {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+}
+
+/* Hộp thông tin: <dl> dàn 2 cột bằng Grid — dt bên trái, dd bên phải */
+.info-card {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+
+  & h2 {
+    margin-block-end: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  & dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  & dt {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  & dd {
+    font-weight: 600;
+  }
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  font-weight: 600;
+
+  /* events.html: <p class="cta section"> — padding của .cta đè mất khoảng cách của .section → bù bằng margin */
+  &.section {
+    margin-block-start: var(--space-8);
+  }
+}
 
 /* TODO(ch2-T6): .form (thẻ nền surface, bo góc), fieldset (bỏ viền, min-inline-size: 0), legend.
    .form__grid: 1 cột, từ 40rem 2 cột. .field: Grid, align-content: start;
