@@ -1,0 +1,105 @@
+/* ==========================================================================
+   tokens.css — Design token của EduHub Web
+   Mọi tệp khác chỉ dùng var(--…) khai báo ở đây, không viết mã màu trực tiếp.
+   Ch04 sẽ chép các token này sang @theme của Tailwind.
+   ========================================================================== */
+
+:root {
+  /* Bảng màu gốc của dự án (cho sẵn) */
+  --palette-blue-900: #001d45;   /* tối */
+  --palette-blue-700: #003f87;   /* chính */
+  --palette-blue-50: #f0f7ff;    /* nền */
+  --palette-cyan-500: #00c4cc;   /* nhấn */
+  --palette-ink: #1a1a2e;        /* chữ */
+  --palette-white: #ffffff;
+
+  /* TODO(ch2-T1): Màu theo vai trò (semantic), lấy giá trị từ palette ở trên:
+       --color-primary, --color-on-primary, --color-accent, --color-bg, --color-surface,
+       --color-text, --color-text-muted, --color-border, --color-link, --color-focus,
+       --color-warning, --color-warning-bg, --color-danger, --color-success,
+       --color-header-bg, --color-header-text */
+
+     --color-primary: var(--palette-blue-700);
+     --color-on-primary: var(--palette-white);
+     --color-accent: var(--palette-cyan-500);
+     --coler-bg: var(--palette-blue-50);
+     --color-surface: var(--palette-white);
+     --color-text:var(--palette-ink);
+     --color-text-muted: #5a5f6e;
+     --color-border: #d0d7e2;
+     --color-link: var(--palette-blue-700);
+     --color-focus: var(--palette-cyan-500);
+     --color-warning: #8a5a00;
+     --color-warning-bg: #fff4d6;
+     --color-danger: #c62828;
+     --color-success: #2e7d32;
+     --color-header-bg: var(--palette-blue-700);
+     --color-header-text: var(--palette-white);
+
+  /* TODO(ch2-T1): Chữ
+       --font-sans: "Be Vietnam Pro", system-ui, … , sans-serif;  (không tải font ngoài)
+       Thang cỡ chữ --text-sm … --text-3xl; ít nhất một cỡ dùng clamp(min, co giãn, max) */
+     --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+     --text-sm: 0.875rem;
+     --text-base: 1rem;
+     --text-lg: 1.125rem;
+     --text-xl: 1.25rem;
+     --text-2xl: 1.5rem;
+     --text-3xl: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem); /* co giãn theo màn hình */
+
+
+
+  /* TODO(ch2-T1): Khoảng cách theo thang 4px bằng rem: --space-1 (0.25rem), --space-2, --space-3,
+       --space-4, --space-6, --space-8, --space-12, --space-16 */
+
+     --space-1: 0.25rem;  /* 4px */
+     --space-2: 0.5rem;   /* 8px */
+     --space-3: 0.75rem;  /* 12px */
+     --space-4: 1rem;     /* 16px */
+     --space-6: 1.5rem;   /* 24px */
+     --space-8: 2rem;     /* 32px */
+     --space-12: 3rem;    /* 48px */
+     --space-16: 4rem;    /* 64px */
+  /* TODO(ch2-T1): Bo góc --radius-sm/md/lg/full; đổ bóng --shadow-sm/md/lg;
+       --container-max (vd. 72rem); thời gian chuyển động --duration-fast/normal */
+
+     --radius-sm: 0.25rem;
+     --radius-md: 0.5rem;
+     --radius-lg: 1rem;
+     --radius-full: 9999px;
+     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+     --shadow-md: 0 4px 12px rgb(0 0 0 / 0.1);
+     --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.14);
+     --container-max: 72rem;
+     --duration-fast: 150ms;
+     --duration-normal: 300ms;
+
+  /* TODO(ch2-T1): Ghi chú breakpoint (var() KHÔNG dùng được trong @media, chỉ để tra cứu):
+       --breakpoint-sm: 40rem;  (640px)   --breakpoint-lg: 64rem;  (1024px) 
+       */
+
+  /* TODO(ch2-T1): color-scheme: light dark; */
+     color-scheme: light dark;
+}
+
+/* TODO(ch2-T1): Dark mode — trong @media (prefers-color-scheme: dark) { :root { … } }
+   chỉ đổi giá trị các token --color-* (nền tối, chữ sáng, primary sáng hơn để đủ tương phản). */
+
+   @media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #7ab4ff;        /* sáng hơn blue-700 để đủ tương phản trên nền tối */
+    --color-on-primary: #0b1220;
+    --color-bg: #0f1420;
+    --color-surface: #1a2130;
+    --color-text: #e8ecf3;
+    --color-text-muted: #a3acbd;
+    --color-border: #2e3747;
+    --color-link: #7ab4ff;
+    --color-warning: #ffcc66;
+    --color-warning-bg: #3a2e10;
+    --color-danger: #ff7a7a;
+    --color-success: #7ddc8a;
+    --color-header-bg: #141b2b;
+    --color-header-text: #e8ecf3;
+  }
+}
